@@ -70,11 +70,13 @@ class SectionTableView extends StatefulWidget {
 
   //section header & divider
   final SectionHeaderCallBack headerInSection;
+  final SectionHeaderCallBack footerInSection;
   final Widget divider;
 
   //tell me cell & header & divider height, so that I can scroll to specific index path
   //work with SectionTableController
   final SectionHeaderHeightCallBack sectionHeaderHeight; // must set when use SectionTableController
+  final SectionHeaderHeightCallBack sectionFooterHeight; // must set when use SectionTableController
   final DividerHeightCallBack dividerHeight; // must set when use SectionTableController
   final CellHeightAtIndexPathCallBack
       cellHeightAtIndexPath; // must set when use SectionTableController
@@ -105,6 +107,8 @@ class SectionTableView extends StatefulWidget {
     this.headerInSection,
     this.divider,
     this.sectionHeaderHeight,
+    this.sectionFooterHeight,
+    this.footerInSection,
     this.dividerHeight,
     this.cellHeightAtIndexPath,
     this.controller,
@@ -470,6 +474,23 @@ class _SectionTableViewState extends State<SectionTableView> {
           );
           list.add(sliverGrid);
         }
+
+      double sectionFooterHeight = 0;
+      if(widget.sectionFooterHeight != null){
+        sectionFooterHeight = widget.sectionFooterHeight(section);
+      }
+      SliverPersistentHeader footer = null;
+      if(widget.footerInSection != null){
+        header = SliverPersistentHeader(
+          delegate: _TableViewHeaderDelegate(
+            maxHeight: sectionFooterHeight,
+            minHeight: sectionFooterHeight,
+            child: widget.footerInSection(section),
+
+          ),
+        );
+        list.add(footer);
+      }
     }
     return list;
   }
