@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa86cb22-0491-4ef8-8968-9d4e7fd26f58" name="Default" comment="[1.0.1 ]add always scroll physics">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/flutter_section_table_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_section_table_view.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -21,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="491" column="25" selection-start-line="491" selection-start-column="25" selection-end-line="491" selection-end-column="25" />
+            <state relative-caret-position="304">
+              <caret line="483" column="40" lean-forward="true" selection-start-line="483" selection-start-column="40" selection-end-line="483" selection-end-column="40" />
               <folding>
                 <element signature="e#37#79#0" expanded="true" />
               </folding>
@@ -189,7 +188,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1657" />
+    <option name="x" value="-1679" />
     <option name="y" value="-183" />
     <option name="width" value="1394" />
     <option name="height" value="975" />
@@ -493,7 +492,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1657" y="-183" width="1394" height="975" extended-state="0" />
+    <frame x="-1679" y="-183" width="1394" height="975" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30991125" />
@@ -799,8 +798,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="491" column="25" selection-start-line="491" selection-start-column="25" selection-end-line="491" selection-end-column="25" />
+        <state relative-caret-position="304">
+          <caret line="483" column="40" lean-forward="true" selection-start-line="483" selection-start-column="40" selection-end-line="483" selection-end-column="40" />
           <folding>
             <element signature="e#37#79#0" expanded="true" />
           </folding>
