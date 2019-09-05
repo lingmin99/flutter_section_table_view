@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
 import 'pullrefresh/pull_to_refresh.dart';
+import 'dart:math' as math;
 
 typedef int RowCountInSectionCallBack(int section);
 typedef Widget CellAtIndexPathCallBack(int section, int row);
@@ -14,6 +15,7 @@ typedef double SectionHeaderHeightCallBack(int section);
 typedef double DividerHeightCallBack();
 typedef double CellHeightAtIndexPathCallBack(int section, int row);
 typedef void SectionTableViewScrollToCallBack(int section, int row, bool isScrollDown);
+typedef SliverGridDelegateWithFixedCrossAxisCount GridDelegateInSectionCallBack(int section);
 
 class IndexPath {
   final int section;
@@ -76,6 +78,7 @@ class SectionTableView extends StatefulWidget {
   final DividerHeightCallBack dividerHeight; // must set when use SectionTableController
   final CellHeightAtIndexPathCallBack
       cellHeightAtIndexPath; // must set when use SectionTableController
+  final GridDelegateInSectionCallBack gridDelegateInSection;
   final SectionTableController
       controller; //you can use this controller to scroll section table view
 
@@ -98,6 +101,7 @@ class SectionTableView extends StatefulWidget {
     @required this.sectionCount,
     @required this.numOfRowInSection,
     @required this.cellAtIndexPath,
+    this.gridDelegateInSection,
     this.headerInSection,
     this.divider,
     this.sectionHeaderHeight,
@@ -369,6 +373,18 @@ class _SectionTableViewState extends State<SectionTableView> {
     }
   }
 
+  _initCell(int section,int row) {
+    Widget cell = widget.cellAtIndexPath(section, row);
+    if (showDivider) {
+      return Column(
+        children: <Widget>[cell, widget.divider],
+        mainAxisSize: MainAxisSize.min,
+      );
+    } else {
+      return cell;
+    }
+  }
+
   void _onOffsetCallback(bool isUp, double offset) {
     // if you want change some widgets state ,you should rewrite the callback
   }
@@ -382,6 +398,7 @@ class _SectionTableViewState extends State<SectionTableView> {
     calculateIndexPathAndOffset();
     if (usePullRefresh()) {
 //      print(' use pull refresh');
+
       return SmartRefresher(
           headerBuilder: widget.refreshHeaderBuilder,
           footerBuilder: widget.refreshFooterBuilder,
@@ -392,20 +409,101 @@ class _SectionTableViewState extends State<SectionTableView> {
           controller: widget.refreshController,
           onRefresh: widget.onRefresh,
           onOffsetChange: _onOffsetCallback,
-          child: ListView.builder(
-              key: listViewKey,
-              itemBuilder: (context, index) {
-                return _buildCell(context, index);
-              }));
+          child: CustomScrollView(
+            controller: widget.scrollController,
+            physics: ScrollPhysics(),
+            slivers: _slivers(),
+          ));
     } else {
-//      print('didn\'t use pull refresh');
-      return ListView.builder(
-          key: listViewKey,
-          physics: AlwaysScrollableScrollPhysics(),
-          controller: widget.scrollController,
-          itemBuilder: (context, index) {
-            return _buildCell(context, index);
-          });
+      return CustomScrollView(
+        controller: widget.scrollController,
+        physics: ScrollPhysics(),
+        slivers: _slivers(),
+      );
+
     }
+  }
+
+  List<Widget> _slivers(){
+    List<Widget> list = List();
+    for(int section = 0; section< widget.sectionCount; section++){
+      //sectionView
+      double sectionHeaderHeight = 0;
+      if(widget.sectionHeaderHeight != null){
+        sectionHeaderHeight = widget.sectionHeaderHeight(section);
+      }
+      SliverPersistentHeader header = null;
+      if(widget.headerInSection != null){
+        header = SliverPersistentHeader(
+          delegate: _TableViewHeaderDelegate(
+            maxHeight: sectionHeaderHeight,
+            minHeight: sectionHeaderHeight,
+            child: widget.headerInSection(section),
+
+          ),
+        );
+        list.add(header);
+      }
+      //cellView
+      SliverGridDelegateWithFixedCrossAxisCount _gridDelegate = null;
+      if(widget.gridDelegateInSection != null){
+        _gridDelegate = widget.gridDelegateInSection(section);
+      }
+        if(_gridDelegate == null){
+          var sliverFixedExtentList = SliverFixedExtentList(
+              delegate: SliverChildBuilderDelegate((BuildContext context, int index){
+                return _initCell(section, index);
+              },
+                childCount: widget.numOfRowInSection(section)
+              ),
+              itemExtent: 50.0,
+          );
+          list.add(sliverFixedExtentList);
+        }else{
+          var sliverGrid = SliverGrid(
+            gridDelegate: _gridDelegate,
+            delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return _initCell(section, index);
+                  },
+              childCount: widget.numOfRowInSection(section),
+            ),
+          );
+          list.add(sliverGrid);
+        }
+    }
+    return list;
+  }
+
+}
+
+class _TableViewHeaderDelegate extends SliverPersistentHeaderDelegate {
+  _TableViewHeaderDelegate({
+    @required this.minHeight,
+    @required this.maxHeight,
+    @required this.child,
+  });
+
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => math.max(maxHeight, minHeight);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_TableViewHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }

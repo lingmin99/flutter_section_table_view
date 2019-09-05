@@ -10,13 +10,18 @@ class MinList extends StatelessWidget {
       ),
       body: SafeArea(
         child: SectionTableView(
+          gridDelegateInSection: (section){
+            return SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+            );
+          },
           sectionCount: 7,
           numOfRowInSection: (section) {
             return section == 0 ? 3 : 4;
           },
           cellAtIndexPath: (section, row) {
             return Container(
-              height: 44.0,
+              height: 100.0,
               child: Center(
                 child: Text('Cell $section $row'),
               ),

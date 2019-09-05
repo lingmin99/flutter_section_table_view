@@ -324,7 +324,7 @@ class _SmartRefresherState extends State<SmartRefresher> {
 
   @override
   Widget build(BuildContext context) {
-    final child = widget.child as ListView;
+    final child = widget.child;
     List<Widget> slivers =
         new List.from(child.buildSlivers(context), growable: true);
     slivers.add(new SliverToBoxAdapter(
