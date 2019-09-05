@@ -450,13 +450,12 @@ class _SectionTableViewState extends State<SectionTableView> {
         _gridDelegate = widget.gridDelegateInSection(section);
       }
         if(_gridDelegate == null){
-          var sliverFixedExtentList = SliverFixedExtentList(
+          var sliverFixedExtentList = SliverList(
               delegate: SliverChildBuilderDelegate((BuildContext context, int index){
                 return _initCell(section, index);
               },
                 childCount: widget.numOfRowInSection(section)
               ),
-              itemExtent: 50.0,
           );
           list.add(sliverFixedExtentList);
         }else{
