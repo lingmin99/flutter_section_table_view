@@ -44,6 +44,12 @@ class SectionList extends StatelessWidget {
               child: Text('Header $section'),
             );
           },
+          sectionFooterHeight: (section){
+            return 40;
+          },
+          footerInSection: (secton){
+            return Container(height: 10, color: Colors.redAccent,);
+          },
           divider: Container(
             color: Colors.green,
             height: 1.0,
@@ -52,6 +58,9 @@ class SectionList extends StatelessWidget {
           sectionHeaderHeight: (section) => 25.0,
           dividerHeight: () => 1.0,
           cellHeightAtIndexPath: (section, row) => 44.0,
+          onPress: (section, row){
+            print("$section --- $row");
+          },
         ),
       ),
     );

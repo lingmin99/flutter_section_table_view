@@ -16,6 +16,7 @@ typedef double DividerHeightCallBack();
 typedef double CellHeightAtIndexPathCallBack(int section, int row);
 typedef void SectionTableViewScrollToCallBack(int section, int row, bool isScrollDown);
 typedef SliverGridDelegateWithFixedCrossAxisCount GridDelegateInSectionCallBack(int section);
+typedef void OnPressCallBack(int section, int row);
 
 class IndexPath {
   final int section;
@@ -93,6 +94,8 @@ class SectionTableView extends StatefulWidget {
   final bool enablePullUp;
   final bool enablePullDown;
   final OnRefresh onRefresh;
+  final OnPressCallBack onPress;
+  final Color selectedCellColor; // set null will no tap animated
 
   final ScrollController _scrollController;
   final RefreshController refreshController;
@@ -120,6 +123,8 @@ class SectionTableView extends StatefulWidget {
     this.enablePullUp: false,
     this.onRefresh,
     this.refreshController,
+    this.onPress,
+    this.selectedCellColor = Colors.black12
   })  : this.refreshHeaderBuilder = refreshHeaderBuilder ??
             ((BuildContext context, int mode) {
               return new ClassicIndicator(mode: mode);
@@ -146,7 +151,7 @@ class SectionTableView extends StatefulWidget {
   _SectionTableViewState createState() => new _SectionTableViewState();
 }
 
-class _SectionTableViewState extends State<SectionTableView> {
+class _SectionTableViewState extends State<SectionTableView> with SingleTickerProviderStateMixin{
   List<IndexPath> indexToIndexPathSearch = [];
   Map<String, double> indexPathToOffsetSearch;
 
@@ -158,6 +163,8 @@ class _SectionTableViewState extends State<SectionTableView> {
   double nextIndexOffset;
 
   bool showDivider;
+
+  AnimatedState animatedState = AnimatedState.AnimatedEnd;
 
   double scrollOffsetFromIndex(IndexPath indexPath) {
     var offset = indexPathToOffsetSearch[indexPath.toString()];
@@ -377,15 +384,42 @@ class _SectionTableViewState extends State<SectionTableView> {
     }
   }
 
+
   _initCell(int section,int row) {
     Widget cell = widget.cellAtIndexPath(section, row);
     if (showDivider) {
-      return Column(
-        children: <Widget>[cell, widget.divider],
-        mainAxisSize: MainAxisSize.min,
+      return new GestureDetectorOnPressAnimated(
+        animationState:(state){
+          animatedState = state;
+        },
+        tapDownColor: widget.selectedCellColor,
+        isCanAnimated: (){
+          return animatedState == AnimatedState.AnimatedEnd ? true : false;
+        },
+       child:Column(
+          children: <Widget>[cell, widget.divider],
+          mainAxisSize: MainAxisSize.min,
+        ),
+          onTap: () => cellOnPress(section,row)
       );
     } else {
-      return cell;
+      return new GestureDetectorOnPressAnimated(
+        animationState: (state){
+          animatedState = state;
+        },
+        isCanAnimated: (){
+          return animatedState == AnimatedState.AnimatedEnd ? true : false;
+        },
+        tapDownColor: widget.selectedCellColor,
+       child: cell,
+        onTap: () => cellOnPress(section,row)
+      );
+    }
+  }
+
+  void cellOnPress(int section, int row){
+    if(widget.onPress != null){
+      widget.onPress(section, row);
     }
   }
 
@@ -475,6 +509,7 @@ class _SectionTableViewState extends State<SectionTableView> {
           list.add(sliverGrid);
         }
 
+        //footerView
       double sectionFooterHeight = 0;
       if(widget.sectionFooterHeight != null){
         sectionFooterHeight = widget.sectionFooterHeight(section);
@@ -527,3 +562,100 @@ class _TableViewHeaderDelegate extends SliverPersistentHeaderDelegate {
         child != oldDelegate.child;
   }
 }
+enum AnimatedState{
+  AnimatedStart,
+  AnimatedDoing,
+  AnimatedEnd
+
+}
+typedef IsAnimatedCallback = bool Function();
+typedef AnimationStateCallback = void Function(AnimatedState state);
+class GestureDetectorOnPressAnimated extends StatefulWidget {
+  final Widget child;
+  final GestureTapCallback onTap;
+  final AnimationStateCallback animationState;
+  final Color tapDownColor;
+  final IsAnimatedCallback isCanAnimated;
+
+  GestureDetectorOnPressAnimated({
+  @required this.child,
+  this.tapDownColor = Colors.black12,
+  this.onTap,
+  this.isCanAnimated,
+  this.animationState,
+  });
+  @override
+  _GestureDetectorOnPressAnimatedState createState() => _GestureDetectorOnPressAnimatedState();
+}
+
+class _GestureDetectorOnPressAnimatedState extends State<GestureDetectorOnPressAnimated> with SingleTickerProviderStateMixin{
+  AnimationController animationController;
+  AnimatedState currentAnimatedState;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentAnimatedState = AnimatedState.AnimatedEnd;
+    animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+  }
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+        onTap: widget.onTap,
+        onTapDown: (d){
+          if(widget.isCanAnimated == null || widget.isCanAnimated() == true) {
+            animationController.forward();
+            changeAnimatedState(AnimatedState.AnimatedStart);
+          }
+        },
+        onTapUp: (d) => prepareToIdle(),
+        onTapCancel: () => prepareToIdle(),
+        child: AnimatedBuilder(
+          animation: animationController,
+          builder: (BuildContext context, Widget child) {
+            return Container(
+              foregroundDecoration: BoxDecoration(
+                color: widget.tapDownColor == null ? null : widget.tapDownColor.withOpacity(0.5 * animationController.value),
+              ),
+              child: widget.child
+            );
+          },)
+    );
+  }
+
+  void prepareToIdle() {
+    AnimationStatusListener listener;
+    listener = (AnimationStatus statue) {
+      if (statue == AnimationStatus.completed) {
+        animationController.removeStatusListener(listener);
+        toStart();
+      }
+    };
+    animationController.addStatusListener(listener);
+    if (!animationController.isAnimating) {
+      animationController.removeStatusListener(listener);
+      toStart();
+    }
+    if(currentAnimatedState == AnimatedState.AnimatedStart){
+      changeAnimatedState(AnimatedState.AnimatedEnd);
+    }
+
+  }
+
+  void toStart() {
+    animationController.stop();
+    animationController.reverse();
+  }
+
+  void changeAnimatedState(AnimatedState state) {
+    currentAnimatedState = state;
+      if(widget.animationState != null){
+        widget.animationState(state);
+      }
+
+  }
+
+}
+
+
+
