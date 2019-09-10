@@ -23,11 +23,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_24" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="229" column="12" lean-forward="true" selection-start-line="229" selection-start-column="12" selection-end-line="229" selection-end-column="12" />
+            <state relative-caret-position="447">
+              <caret line="491" column="25" selection-start-line="491" selection-start-column="25" selection-end-line="491" selection-end-column="25" />
               <folding>
                 <element signature="e#37#79#0" expanded="true" />
               </folding>
@@ -36,19 +36,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/gestures/tap.dart">
+        <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/sliver_persistent_header.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
+            <state relative-caret-position="253">
+              <caret line="99" column="32" lean-forward="true" selection-start-line="99" selection-start-column="32" selection-end-line="99" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/gestures/tap.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1230">
+              <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/example/lib/SectionList.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="60" column="14" lean-forward="true" selection-start-line="60" selection-start-column="10" selection-end-line="60" selection-end-column="17" />
+            <state relative-caret-position="323">
+              <caret line="45" column="41" lean-forward="true" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -56,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/container.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
+            <state relative-caret-position="4770">
               <caret line="326" column="19" selection-start-line="326" selection-start-column="19" selection-end-line="326" selection-end-column="19" />
             </state>
           </provider>
@@ -65,7 +74,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/gesture_detector.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
+            <state relative-caret-position="1755">
               <caret line="161" column="2" selection-start-line="161" selection-start-column="2" selection-end-line="161" selection-end-column="2" />
             </state>
           </provider>
@@ -74,7 +83,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/development/flutter/bin/cache/pkg/sky_engine/lib/core/duration.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
+            <state relative-caret-position="1425">
               <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
             </state>
           </provider>
@@ -83,7 +92,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/pullrefresh/src/internals/indicator_config.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
+            <state relative-caret-position="60">
               <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
               <folding>
                 <element signature="e#88#120#0" expanded="true" />
@@ -181,14 +190,14 @@
         <option value="$PROJECT_DIR$/example/lib/FullList.dart" />
         <option value="$PROJECT_DIR$/lib/pullrefresh/src/smart_refresher.dart" />
         <option value="$PROJECT_DIR$/example/lib/MinList.dart" />
-        <option value="$PROJECT_DIR$/example/lib/SectionList.dart" />
         <option value="$PROJECT_DIR$/lib/flutter_section_table_view.dart" />
+        <option value="$PROJECT_DIR$/example/lib/SectionList.dart" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1578" />
-    <option name="y" value="-172" />
+    <option name="x" value="-1913" />
+    <option name="y" value="-183" />
     <option name="width" value="1394" />
     <option name="height" value="975" />
   </component>
@@ -200,7 +209,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -237,11 +246,16 @@
               <item name="pullrefresh" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="flutter_section_table_view" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_section_table_view" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -491,10 +505,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1578" y="-172" width="1394" height="975" extended-state="0" />
+    <frame x="-1913" y="-183" width="1394" height="975" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31878698" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32322484" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -503,12 +517,12 @@
       <window_info id="Resources Explorer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.625" visible="true" weight="0.27066818" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.62426037" weight="0.27066818" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8817021" weight="0.3919271" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49787235" weight="0.3294271" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.375" side_tool="true" visible="true" weight="0.27066818" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.37573963" side_tool="true" visible="true" weight="0.27066818" />
       <window_info anchor="bottom" id="Dart Analysis" order="8" sideWeight="0.48510638" weight="0.22005208" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4933432" weight="0.3272933" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4473684" weight="0.1944658" />
@@ -588,7 +602,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/example/lib/SectionList.dart</url>
-          <line>61</line>
+          <line>59</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
@@ -677,13 +691,6 @@
     <entry file="file://$PROJECT_DIR$/lib/pullrefresh/src/internals/refresh_physics.dart">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/sliver_persistent_header.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="92" column="8" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/development/flutter/bin/cache/pkg/sky_engine/lib/math/math.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -763,44 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/sliver.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11790">
-          <caret line="800" column="8" selection-start-line="800" selection-start-column="8" selection-end-line="800" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/MinList.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/pullrefresh/src/internals/indicator_config.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="e#88#120#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/development/flutter/bin/cache/pkg/sky_engine/lib/core/duration.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/gesture_detector.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="161" column="2" selection-start-line="161" selection-start-column="2" selection-end-line="161" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/painting/box_decoration.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -815,34 +784,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/container.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="326" column="19" selection-start-line="326" selection-start-column="19" selection-end-line="326" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/gestures/tap.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
+        <state relative-caret-position="1230">
           <caret line="89" column="8" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/SectionList.dart">
+    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/container.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="60" column="14" lean-forward="true" selection-start-line="60" selection-start-column="10" selection-end-line="60" selection-end-column="17" />
+        <state relative-caret-position="4770">
+          <caret line="326" column="19" selection-start-line="326" selection-start-column="19" selection-end-line="326" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/gesture_detector.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1755">
+          <caret line="161" column="2" selection-start-line="161" selection-start-column="2" selection-end-line="161" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/development/flutter/bin/cache/pkg/sky_engine/lib/core/duration.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1425">
+          <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/pullrefresh/src/internals/indicator_config.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="e#88#120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/sliver.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11790">
+          <caret line="800" column="8" selection-start-line="800" selection-start-column="8" selection-end-line="800" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/MinList.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/development/flutter/packages/flutter/lib/src/widgets/sliver_persistent_header.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="99" column="32" lean-forward="true" selection-start-line="99" selection-start-column="32" selection-end-line="99" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="229" column="12" lean-forward="true" selection-start-line="229" selection-start-column="12" selection-end-line="229" selection-end-column="12" />
+        <state relative-caret-position="447">
+          <caret line="491" column="25" selection-start-line="491" selection-start-column="25" selection-end-line="491" selection-end-column="25" />
           <folding>
             <element signature="e#37#79#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/SectionList.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="45" column="41" lean-forward="true" selection-start-line="45" selection-start-column="41" selection-end-line="45" selection-end-column="41" />
         </state>
       </provider>
     </entry>

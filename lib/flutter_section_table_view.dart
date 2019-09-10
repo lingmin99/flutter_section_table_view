@@ -466,22 +466,35 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
     List<Widget> list = List();
     for(int section = 0; section< widget.sectionCount; section++){
       //sectionView
-      double sectionHeaderHeight = 0;
-      if(widget.sectionHeaderHeight != null){
-        sectionHeaderHeight = widget.sectionHeaderHeight(section);
-      }
-      SliverPersistentHeader header = null;
-      if(widget.headerInSection != null){
-        header = SliverPersistentHeader(
-          delegate: _TableViewHeaderDelegate(
-            maxHeight: sectionHeaderHeight,
-            minHeight: sectionHeaderHeight,
-            child: widget.headerInSection(section),
 
-          ),
+      if(widget.sectionHeaderHeight != null){
+        double sectionHeaderHeight = 0;
+        sectionHeaderHeight = widget.sectionHeaderHeight(section);
+        SliverPersistentHeader header = null;
+        if(widget.headerInSection != null){
+          header = SliverPersistentHeader(
+            floating: true,
+            pinned:true,
+            delegate: _TableViewHeaderDelegate(
+              maxHeight: sectionHeaderHeight,
+              minHeight: sectionHeaderHeight,
+
+              child: widget.headerInSection(section),
+
+            ),
+          );
+          list.add(header);
+        }
+      }else if(widget.headerInSection != null){
+        SliverToBoxAdapter header = SliverToBoxAdapter(
+          child: widget.headerInSection(section),
         );
         list.add(header);
       }
+
+
+
+
       //cellView
       SliverGridDelegateWithFixedCrossAxisCount _gridDelegate = null;
       if(widget.gridDelegateInSection != null){

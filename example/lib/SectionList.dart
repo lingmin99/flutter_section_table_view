@@ -25,7 +25,7 @@ class SectionList extends StatelessWidget {
           }),
       body: SafeArea(
         child: SectionTableView(
-          sectionCount: 5,
+          sectionCount: 15,
           numOfRowInSection: (section) {
             return section == 0 ? 3 : 4;
           },
@@ -39,9 +39,8 @@ class SectionList extends StatelessWidget {
           },
           headerInSection: (section) {
             return Container(
-              height: 25.0,
               color: Colors.grey,
-              child: Text('Header $section'),
+              child: Text('Headersdfsdfdfsdf\nsdfsdfsdflksjdlfkjsdf $section'),
             );
           },
           sectionFooterHeight: (section){
@@ -55,7 +54,6 @@ class SectionList extends StatelessWidget {
             height: 1.0,
           ),
           controller: controller, //SectionTableController
-          sectionHeaderHeight: (section) => 25.0,
           dividerHeight: () => 1.0,
           cellHeightAtIndexPath: (section, row) => 44.0,
           onPress: (section, row){
