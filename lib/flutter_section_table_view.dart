@@ -347,6 +347,7 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
 
   @override
   void dispose() {
+
     super.dispose();
 //    refreshController.dispose();
 //    print('SectionTableView dispose');
@@ -388,7 +389,13 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
   _initCell(int section,int row) {
     Widget cell = widget.cellAtIndexPath(section, row);
     if (showDivider) {
-      return new GestureDetectorOnPressAnimated(
+      cell = Column(
+        children: <Widget>[cell, widget.divider],
+        mainAxisSize: MainAxisSize.min,
+      );
+
+    }
+    return new GestureDetectorOnPressAnimated(
         animationState:(state){
           animatedState = state;
         },
@@ -396,25 +403,9 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
         isCanAnimated: (){
           return animatedState == AnimatedState.AnimatedEnd ? true : false;
         },
-       child:Column(
-          children: <Widget>[cell, widget.divider],
-          mainAxisSize: MainAxisSize.min,
-        ),
-          onTap: () => cellOnPress(section,row)
-      );
-    } else {
-      return new GestureDetectorOnPressAnimated(
-        animationState: (state){
-          animatedState = state;
-        },
-        isCanAnimated: (){
-          return animatedState == AnimatedState.AnimatedEnd ? true : false;
-        },
-        tapDownColor: widget.selectedCellColor,
-       child: cell,
+        child:cell,
         onTap: () => cellOnPress(section,row)
-      );
-    }
+    );
   }
 
   void cellOnPress(int section, int row){
@@ -491,9 +482,6 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
         );
         list.add(header);
       }
-
-
-
 
       //cellView
       SliverGridDelegateWithFixedCrossAxisCount _gridDelegate = null;
@@ -591,25 +579,34 @@ class GestureDetectorOnPressAnimated extends StatefulWidget {
   final IsAnimatedCallback isCanAnimated;
 
   GestureDetectorOnPressAnimated({
-  @required this.child,
-  this.tapDownColor = Colors.black12,
-  this.onTap,
-  this.isCanAnimated,
-  this.animationState,
+    @required this.child,
+    this.tapDownColor = Colors.black12,
+    this.onTap,
+    this.isCanAnimated,
+    this.animationState,
   });
   @override
   _GestureDetectorOnPressAnimatedState createState() => _GestureDetectorOnPressAnimatedState();
 }
 
 class _GestureDetectorOnPressAnimatedState extends State<GestureDetectorOnPressAnimated> with SingleTickerProviderStateMixin{
-  AnimationController animationController;
+  AnimationController _animationController;
   AnimatedState currentAnimatedState;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     currentAnimatedState = AnimatedState.AnimatedEnd;
-    animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+    _animationController = AnimationController(
+          vsync: this, duration: Duration(milliseconds: 350));
+
+
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _animationController.dispose();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -617,18 +614,18 @@ class _GestureDetectorOnPressAnimatedState extends State<GestureDetectorOnPressA
         onTap: widget.onTap,
         onTapDown: (d){
           if(widget.isCanAnimated == null || widget.isCanAnimated() == true) {
-            animationController.forward();
+            _animationController.forward();
             changeAnimatedState(AnimatedState.AnimatedStart);
           }
         },
         onTapUp: (d) => prepareToIdle(),
         onTapCancel: () => prepareToIdle(),
         child: AnimatedBuilder(
-          animation: animationController,
+          animation: _animationController,
           builder: (BuildContext context, Widget child) {
             return Container(
               foregroundDecoration: BoxDecoration(
-                color: widget.tapDownColor == null ? null : widget.tapDownColor.withOpacity(0.5 * animationController.value),
+                color: widget.tapDownColor == null ? null : widget.tapDownColor.withOpacity(0.5 * _animationController.value),
               ),
               child: widget.child
             );
@@ -640,13 +637,13 @@ class _GestureDetectorOnPressAnimatedState extends State<GestureDetectorOnPressA
     AnimationStatusListener listener;
     listener = (AnimationStatus statue) {
       if (statue == AnimationStatus.completed) {
-        animationController.removeStatusListener(listener);
+        _animationController.removeStatusListener(listener);
         toStart();
       }
     };
-    animationController.addStatusListener(listener);
-    if (!animationController.isAnimating) {
-      animationController.removeStatusListener(listener);
+    _animationController.addStatusListener(listener);
+    if (!_animationController.isAnimating) {
+      _animationController.removeStatusListener(listener);
       toStart();
     }
     if(currentAnimatedState == AnimatedState.AnimatedStart){
@@ -656,8 +653,8 @@ class _GestureDetectorOnPressAnimatedState extends State<GestureDetectorOnPressA
   }
 
   void toStart() {
-    animationController.stop();
-    animationController.reverse();
+    _animationController.stop();
+    _animationController.reverse();
   }
 
   void changeAnimatedState(AnimatedState state) {

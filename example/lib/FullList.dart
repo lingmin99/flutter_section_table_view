@@ -113,7 +113,6 @@ class _FullListState extends State<FullList> {
             height: 1.0,
           ),
           controller: controller, //SectionTableController
-          sectionHeaderHeight: (section) => 25.0,
           dividerHeight: () => 1.0,
           cellHeightAtIndexPath: (section, row) => 44.0,
         ),
