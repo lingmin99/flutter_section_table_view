@@ -17,6 +17,7 @@ typedef double CellHeightAtIndexPathCallBack(int section, int row);
 typedef void SectionTableViewScrollToCallBack(int section, int row, bool isScrollDown);
 typedef SliverGridDelegateWithFixedCrossAxisCount GridDelegateInSectionCallBack(int section);
 typedef void OnPressCallBack(int section, int row);
+typedef List<Widget> SliversInSection(int section);
 
 class IndexPath {
   final int section;
@@ -99,13 +100,14 @@ class SectionTableView extends StatefulWidget {
 
   final ScrollController _scrollController;
   final RefreshController refreshController;
+  final SliversInSection sliversInSection;
   ScrollController get scrollController => _scrollController;
 
   SectionTableView({
     Key key,
     @required this.sectionCount,
     @required this.numOfRowInSection,
-    @required this.cellAtIndexPath,
+    this.cellAtIndexPath,
     this.gridDelegateInSection,
     this.headerInSection,
     this.divider,
@@ -124,7 +126,8 @@ class SectionTableView extends StatefulWidget {
     this.onRefresh,
     this.refreshController,
     this.onPress,
-    this.selectedCellColor = Colors.black12
+    this.selectedCellColor = Colors.black12,
+    this.sliversInSection,
   })  : this.refreshHeaderBuilder = refreshHeaderBuilder ??
             ((BuildContext context, int mode) {
               return new ClassicIndicator(mode: mode);
@@ -163,8 +166,7 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
   double nextIndexOffset;
 
   bool showDivider;
-
-  AnimatedState animatedState = AnimatedState.AnimatedEnd;
+  SingleSelectedAnimated singleSelectedAnimated;
 
   double scrollOffsetFromIndex(IndexPath indexPath) {
     var offset = indexPathToOffsetSearch[indexPath.toString()];
@@ -343,13 +345,14 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
   @override
   void initState() {
     super.initState();
+    singleSelectedAnimated = SingleSelectedAnimated(
+        selectedCellColor: widget.selectedCellColor,
+        onPress: widget.onPress);
   }
 
   @override
   void dispose() {
-
     super.dispose();
-//    refreshController.dispose();
 //    print('SectionTableView dispose');
   }
 
@@ -388,24 +391,29 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
 
   _initCell(int section,int row) {
     Widget cell = widget.cellAtIndexPath(section, row);
-    if (showDivider) {
-      cell = Column(
-        children: <Widget>[cell, widget.divider],
-        mainAxisSize: MainAxisSize.min,
-      );
-
+    if(cell != null) {
+      if (showDivider) {
+        cell = Column(
+          children: <Widget>[cell, widget.divider],
+          mainAxisSize: MainAxisSize.min,
+        );
+      }
+      return singleSelectedAnimated.addChild(cell, section, row);
+//      return new GestureDetectorOnPressAnimated(
+//          animationState: (state) {
+//            animatedState = state;
+//          },
+//          tapDownColor: widget.selectedCellColor,
+//          isCanAnimated: () {
+//            return animatedState == AnimatedState.AnimatedEnd ? true : false;
+//          },
+//          child: cell,
+//          onTap: () => cellOnPress(section, row)
+//      );
+    }else
+    {
+      return null;
     }
-    return new GestureDetectorOnPressAnimated(
-        animationState:(state){
-          animatedState = state;
-        },
-        tapDownColor: widget.selectedCellColor,
-        isCanAnimated: (){
-          return animatedState == AnimatedState.AnimatedEnd ? true : false;
-        },
-        child:cell,
-        onTap: () => cellOnPress(section,row)
-    );
   }
 
   void cellOnPress(int section, int row){
@@ -484,17 +492,18 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
       }
 
       //cellView
-      SliverGridDelegateWithFixedCrossAxisCount _gridDelegate = null;
-      if(widget.gridDelegateInSection != null){
-        _gridDelegate = widget.gridDelegateInSection(section);
-      }
+      if(widget.cellAtIndexPath != null){
+        SliverGridDelegateWithFixedCrossAxisCount _gridDelegate = null;
+        if(widget.gridDelegateInSection != null){
+          _gridDelegate = widget.gridDelegateInSection(section);
+        }
         if(_gridDelegate == null){
           SliverList _sliverList = SliverList(
-              delegate: SliverChildBuilderDelegate((BuildContext context, int index){
-                return _initCell(section, index);
-              },
+            delegate: SliverChildBuilderDelegate((BuildContext context, int index){
+              return _initCell(section, index);
+            },
                 childCount: widget.numOfRowInSection(section)
-              ),
+            ),
           );
           list.add(_sliverList);
         }else{
@@ -502,14 +511,20 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
             gridDelegate: _gridDelegate,
             delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    return _initCell(section, index);
-                  },
+                return _initCell(section, index);
+              },
               childCount: widget.numOfRowInSection(section),
             ),
           );
           list.add(sliverGrid);
         }
+      }
 
+
+      if(widget.sliversInSection != null){
+        List<Widget> sliversInSection = widget.sliversInSection(section);
+        list.addAll(sliversInSection);
+      }
         //footerView
       double sectionFooterHeight = 0;
       if(widget.sectionFooterHeight != null){
@@ -563,6 +578,42 @@ class _TableViewHeaderDelegate extends SliverPersistentHeaderDelegate {
         child != oldDelegate.child;
   }
 }
+
+class SingleSelectedAnimated {
+  final Color selectedCellColor;
+  final OnPressCallBack onPress;
+
+
+  List<Widget> _childs = List();
+  AnimatedState _animatedState = AnimatedState.AnimatedEnd;
+
+  SingleSelectedAnimated({this.selectedCellColor,this.onPress});
+  Widget addChild(Widget child, int section, int row){
+   var widget = GestureDetectorOnPressAnimated(
+        animationState: (state) {
+          _animatedState = state;
+        },
+        tapDownColor: selectedCellColor,
+        isCanAnimated: () {
+          return _animatedState == AnimatedState.AnimatedEnd ? true : false;
+        },
+        child: child,
+        onTap: () => _onPress(section, row)
+    );
+   _childs.add(widget);
+   return widget;
+  }
+
+  void _onPress(section, row){
+    if(_animatedState == AnimatedState.AnimatedEnd){
+      if(onPress != null)
+      onPress(section,row);
+    }
+  }
+}
+
+
+
 enum AnimatedState{
   AnimatedStart,
   AnimatedDoing,

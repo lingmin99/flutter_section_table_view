@@ -101,6 +101,15 @@ class _FullListState extends State<FullList> {
               ),
             );
           },
+          sliversInSection: (section){
+            return [SliverList(
+              delegate: SliverChildBuilderDelegate((BuildContext context, int index){
+                return Container(height: 39, color: Colors.red,);
+              },
+                  childCount: 3
+              ),
+            )];
+          },
           headerInSection: (section) {
             return Container(
               height: 25.0,
