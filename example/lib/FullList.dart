@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_section_table_view/flutter_section_table_view.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FullList extends StatefulWidget {
   @override
@@ -26,31 +27,6 @@ class _FullListState extends State<FullList> {
   });
   final refreshController = RefreshController();
 
-  Indicator refreshHeaderBuilder(BuildContext context, int mode) {
-    return ClassicIndicator(
-      mode: mode,
-      releaseText: '释放以刷新',
-      refreshingText: '刷新中...',
-      completeText: '完成',
-      failedText: '失败',
-      idleText: '下拉以刷新',
-      noDataText: '',
-    );
-  }
-
-  Indicator refreshFooterBuilder(BuildContext context, int mode) {
-    return ClassicIndicator(
-      mode: mode,
-      releaseText: '释放以加载',
-      refreshingText: '加载中...',
-      completeText: '加载完成',
-      failedText: '加载失败',
-      idleText: '上拉以加载',
-      noDataText: '',
-      idleIcon: const Icon(Icons.arrow_upward, color: Colors.grey),
-      releaseIcon: const Icon(Icons.arrow_downward, color: Colors.grey),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,23 +46,19 @@ class _FullListState extends State<FullList> {
           }),
       body: SafeArea(
         child: SectionTableView(
-          refreshHeaderBuilder: refreshHeaderBuilder,
-          refreshFooterBuilder: refreshFooterBuilder,
           enablePullDown: true,
           enablePullUp: true,
-          onRefresh: (up) {
-            print('on refresh $up');
+          onRefresh: () {
 
             Future.delayed(const Duration(milliseconds: 2009)).then((val) {
-              refreshController.sendBack(up, RefreshStatus.completed);
+              refreshController.loadComplete();
               setState(() {
-                if (up) {
-                  sectionCount = 4;
-                } else {
-                  sectionCount++;
-                }
+                sectionCount = 4;
               });
             });
+          },
+          onLoading: (){
+              sectionCount++;
           },
           refreshController: refreshController,
           sectionCount: sectionCount,

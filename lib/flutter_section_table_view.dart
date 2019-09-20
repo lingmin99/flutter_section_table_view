@@ -1,12 +1,11 @@
 library flutter_section_table_view;
-
-export 'pullrefresh/pull_to_refresh.dart';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
-import 'pullrefresh/pull_to_refresh.dart';
 import 'dart:math' as math;
+
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 
 typedef int RowCountInSectionCallBack(int section);
 typedef Widget CellAtIndexPathCallBack(int section, int row);
@@ -87,14 +86,12 @@ class SectionTableView extends StatefulWidget {
       controller; //you can use this controller to scroll section table view
 
   //pull refresh
-  final IndicatorBuilder
-      refreshHeaderBuilder; // custom your own refreshHeader, height = 60.0 is better, other value will result in wrong scroll to indexpath offset
-  final IndicatorBuilder
-      refreshFooterBuilder; // custom your own refreshFooter, height = 60.0 is better
-  final Config refreshHeaderConfig, refreshFooterConfig; // configure your refresh header and footer
+  final Widget header; // custom your own refreshHeader, height = 60.0 is better, other value will result in wrong scroll to indexpath offset
+  final Widget footer; // custom your own refreshFooter, height = 60.0 is better// configure your refresh header and footer
   final bool enablePullUp;
   final bool enablePullDown;
-  final OnRefresh onRefresh;
+  final VoidCallback onRefresh;
+  final VoidCallback onLoading;
   final OnPressCallBack onPress;
   final Color selectedCellColor; // set null will no tap animated
 
@@ -117,35 +114,17 @@ class SectionTableView extends StatefulWidget {
     this.dividerHeight,
     this.cellHeightAtIndexPath,
     this.controller,
-    refreshHeaderBuilder,
-    refreshFooterBuilder,
-    this.refreshHeaderConfig: const RefreshConfig(completeDuration: 200),
-    this.refreshFooterConfig: const RefreshConfig(completeDuration: 200),
+    this.header = const WaterDropHeader(),
+    this.footer,
     this.enablePullDown: false,
     this.enablePullUp: false,
     this.onRefresh,
+    this.onLoading,
     this.refreshController,
     this.onPress,
     this.selectedCellColor = Colors.black12,
     this.sliversInSection,
-  })  : this.refreshHeaderBuilder = refreshHeaderBuilder ??
-            ((BuildContext context, int mode) {
-              return new ClassicIndicator(mode: mode);
-            }),
-        this.refreshFooterBuilder = refreshFooterBuilder ??
-            ((BuildContext context, int mode) {
-              return new ClassicIndicator(
-                mode: mode,
-                releaseText: 'Load when release',
-                refreshingText: 'Loading...',
-                completeText: 'Load complete',
-                failedText: 'Load failed',
-                idleText: 'Pull up to load more',
-                idleIcon: const Icon(Icons.arrow_upward, color: Colors.grey),
-                releaseIcon: const Icon(Icons.arrow_downward, color: Colors.grey),
-              );
-            }),
-        assert((enablePullDown || enablePullUp) ? refreshController != null : true),
+  })  :assert((enablePullDown || enablePullUp) ? refreshController != null : true),
         _scrollController = (enablePullDown || enablePullUp)
             ? refreshController.scrollController
             : ScrollController(),
@@ -437,14 +416,13 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
 //      print(' use pull refresh');
 
       return SmartRefresher(
-          headerBuilder: widget.refreshHeaderBuilder,
-          footerBuilder: widget.refreshFooterBuilder,
-          headerConfig: widget.refreshHeaderConfig,
-          footerConfig: widget.refreshFooterConfig,
+          header: widget.header,
+          footer: widget.footer,
           enablePullDown: widget.enablePullDown,
           enablePullUp: widget.enablePullUp,
           controller: widget.refreshController,
           onRefresh: widget.onRefresh,
+          onLoading: widget.onLoading,
           onOffsetChange: _onOffsetCallback,
           child: CustomScrollView(
             controller: widget.scrollController,
