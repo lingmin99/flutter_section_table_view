@@ -89,6 +89,8 @@ class SectionTableView extends StatefulWidget {
   final Widget header; // custom your own refreshHeader, height = 60.0 is better, other value will result in wrong scroll to indexpath offset
   final Widget footer; // custom your own refreshFooter, height = 60.0 is better// configure your refresh header and footer
   final bool enablePullUp;
+  /// controll whether open the second floor function
+  final bool enableTwoLevel;
   final bool enablePullDown;
   final VoidCallback onRefresh;
   final VoidCallback onLoading;
@@ -99,6 +101,7 @@ class SectionTableView extends StatefulWidget {
   final RefreshController refreshController;
   final SliversInSection sliversInSection;
   ScrollController get scrollController => _scrollController;
+  /// controll whether open the second floor function
 
   SectionTableView({
     Key key,
@@ -117,6 +120,7 @@ class SectionTableView extends StatefulWidget {
     this.header = const WaterDropHeader(),
     this.footer,
     this.enablePullDown: false,
+    this.enableTwoLevel: false,
     this.enablePullUp: false,
     this.onRefresh,
     this.onLoading,
@@ -124,6 +128,7 @@ class SectionTableView extends StatefulWidget {
     this.onPress,
     this.selectedCellColor = Colors.black12,
     this.sliversInSection,
+
   })  :assert((enablePullDown || enablePullUp) ? refreshController != null : true),
         _scrollController = (enablePullDown || enablePullUp)
             ? refreshController.scrollController
@@ -420,6 +425,7 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
           footer: widget.footer,
           enablePullDown: widget.enablePullDown,
           enablePullUp: widget.enablePullUp,
+          enableTwoLevel: widget.enableTwoLevel,
           controller: widget.refreshController,
           onRefresh: widget.onRefresh,
           onLoading: widget.onLoading,
