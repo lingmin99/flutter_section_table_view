@@ -117,7 +117,7 @@ class SectionTableView extends StatefulWidget {
     this.dividerHeight,
     this.cellHeightAtIndexPath,
     this.controller,
-    this.header = const WaterDropHeader(),
+    this.header,// = const WaterDropHeader(),
     this.footer,
     this.enablePullDown: false,
     this.enableTwoLevel: false,
