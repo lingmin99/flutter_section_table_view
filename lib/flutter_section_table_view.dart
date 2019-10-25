@@ -379,7 +379,7 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
     if(cell != null) {
       if (showDivider) {
         if(widget.gridDelegateInSection != null && widget.gridDelegateInSection(section) != null){
-          child = cell;
+          child = singleSelectedAnimated.addChild(cell, section, row);
         }else {
           child = Column(
             children: <Widget>[
