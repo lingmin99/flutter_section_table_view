@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa86cb22-0491-4ef8-8968-9d4e7fd26f58" name="Default" comment="修改下拉头样式">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/flutter_section_table_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_section_table_view.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -23,8 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="119" column="18" selection-start-line="119" selection-start-column="18" selection-end-line="119" selection-end-column="18" />
+            <state relative-caret-position="402">
+              <caret line="392" column="19" lean-forward="true" selection-start-line="392" selection-start-column="19" selection-end-line="392" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -110,10 +110,8 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>didn't use pull refresh</find>
       <find>refreshHeaderBuilder</find>
       <find>darty</find>
-      <find>_buildCell</find>
       <find>cellAtIndexPath</find>
       <find>math</find>
       <find>context</find>
@@ -138,8 +136,10 @@
       <find>sm</find>
       <find>smr</find>
       <find>enableTwoLevel</find>
-      <find>_initCell</find>
       <find>gridDelegateInSection</find>
+      <find>cell</find>
+      <find>_buildCell</find>
+      <find>_initCell</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -175,8 +175,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1509" />
-    <option name="y" value="-135" />
+    <option name="x" value="-1749" />
+    <option name="y" value="-121" />
     <option name="width" value="1433" />
     <option name="height" value="910" />
   </component>
@@ -188,7 +188,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -201,10 +200,16 @@
               <item name="flutter_section_table_view" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="flutter_section_table_view" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flutter_section_table_view" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -469,10 +474,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1509" y="-135" width="1433" height="910" extended-state="0" />
+    <frame x="-1749" y="-121" width="1433" height="910" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.35298347" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3580158" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
@@ -782,8 +787,8 @@
     <entry file="file://$PROJECT_DIR$/lib/pullrefresh/src/indicator/classic_indicator.dart" />
     <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="119" column="18" selection-start-line="119" selection-start-column="18" selection-end-line="119" selection-end-column="18" />
+        <state relative-caret-position="402">
+          <caret line="392" column="19" lean-forward="true" selection-start-line="392" selection-start-column="19" selection-end-line="392" selection-end-column="19" />
         </state>
       </provider>
     </entry>

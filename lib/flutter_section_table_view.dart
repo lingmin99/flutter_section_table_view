@@ -374,19 +374,23 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
 
 
   _initCell(int section,int row) {
+    Widget child;
     Widget cell = widget.cellAtIndexPath(section, row);
     if(cell != null) {
       if (showDivider) {
         if(widget.gridDelegateInSection != null && widget.gridDelegateInSection(section) != null){
-
+          child = cell;
         }else {
-          cell = Column(
-            children: <Widget>[cell, widget.divider],
+          child = Column(
+            children: <Widget>[
+              singleSelectedAnimated.addChild(cell, section, row),
+              widget.divider
+            ],
             mainAxisSize: MainAxisSize.min,
           );
         }
       }
-      return singleSelectedAnimated.addChild(cell, section, row);
+      return child;
 //      return new GestureDetectorOnPressAnimated(
 //          animationState: (state) {
 //            animatedState = state;
