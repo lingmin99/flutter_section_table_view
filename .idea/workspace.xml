@@ -23,8 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="381" column="70" lean-forward="true" selection-start-line="381" selection-start-column="70" selection-end-line="381" selection-end-column="70" />
+            <state relative-caret-position="57">
+              <caret line="378" column="17" lean-forward="true" selection-start-line="378" selection-start-column="17" selection-end-line="378" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -787,8 +787,8 @@
     <entry file="file://$PROJECT_DIR$/lib/pullrefresh/src/indicator/classic_indicator.dart" />
     <entry file="file://$PROJECT_DIR$/lib/flutter_section_table_view.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="381" column="70" lean-forward="true" selection-start-line="381" selection-start-column="70" selection-end-line="381" selection-end-column="70" />
+        <state relative-caret-position="57">
+          <caret line="378" column="17" lean-forward="true" selection-start-line="378" selection-start-column="17" selection-end-line="378" selection-end-column="17" />
         </state>
       </provider>
     </entry>

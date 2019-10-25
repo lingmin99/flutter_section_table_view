@@ -376,14 +376,16 @@ class _SectionTableViewState extends State<SectionTableView> with SingleTickerPr
   _initCell(int section,int row) {
     Widget child;
     Widget cell = widget.cellAtIndexPath(section, row);
+    child = cell;
+    cell = singleSelectedAnimated.addChild(cell, section, row);
     if(cell != null) {
       if (showDivider) {
         if(widget.gridDelegateInSection != null && widget.gridDelegateInSection(section) != null){
-          child = singleSelectedAnimated.addChild(cell, section, row);
+          child = cell;
         }else {
           child = Column(
             children: <Widget>[
-              singleSelectedAnimated.addChild(cell, section, row),
+              cell,
               widget.divider
             ],
             mainAxisSize: MainAxisSize.min,
